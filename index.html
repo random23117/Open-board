@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="একটি উন্মুক্ত পোস্ট বোর্ড—অ্যাকাউন্ট ছাড়াই পোস্ট করুন এবং সবার পোস্ট দেখুন।">
+  <title>OpenBoard — সবার পোস্ট</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="OpenBoard হোম"><span class="brand-mark">O</span><span>OpenBoard</span></a>
+    <span class="top-note"><span class="live-dot"></span> সবার জন্য উন্মুক্ত</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">PUBLIC COMMUNITY BOARD</div>
+      <h1>আপনার কথা <span>সবার সাথে</span> ভাগ করুন।</h1>
+      <p>অ্যাকাউন্ট বা লগইন ছাড়াই পোস্ট করুন। এখানে প্রকাশিত পোস্ট অন্য দর্শকরাও দেখতে পারবেন।</p>
+    </section>
+
+    <section class="composer panel" aria-labelledby="composer-title">
+      <div class="section-heading">
+        <div><div class="eyebrow">নতুন কিছু বলুন</div><h2 id="composer-title">একটি পোস্ট লিখুন</h2></div>
+        <span class="no-account">অ্যাকাউন্ট লাগবে না</span>
+      </div>
+      <form id="post-form">
+        <label for="nickname">নাম বা ছদ্মনাম <span class="optional">ঐচ্ছিক</span></label>
+        <input id="nickname" name="nickname" maxlength="40" placeholder="যেমন: একজন বন্ধু" autocomplete="nickname">
+        <label for="post-content">আপনার পোস্ট <span class="required">* আবশ্যক</span></label>
+        <textarea id="post-content" name="content" maxlength="1200" rows="5" required placeholder="আপনি কী বলতে চান? (সর্বোচ্চ ১২০০ অক্ষর)"></textarea>
+        <div class="form-bottom">
+          <span id="char-count">০ / ১২০০</span>
+          <button id="submit-button" class="primary-button" type="submit"><span>পোস্ট প্রকাশ করুন</span><span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="form-note">ব্যক্তিগত তথ্য, পাসওয়ার্ড বা অন্যের গোপন তথ্য পোস্ট করবেন না। পোস্টগুলো সর্বজনীন।</p>
+      </form>
+      <div id="form-status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="feed-section">
+      <div class="feed-heading">
+        <div><div class="eyebrow">COMMUNITY FEED</div><h2>সবার পোস্ট</h2></div>
+        <button id="refresh-button" class="secondary-button" type="button" aria-label="পোস্ট রিফ্রেশ করুন">↻ রিফ্রেশ</button>
+      </div>
+      <div id="connection-message" class="notice" role="status">পোস্ট লোড হচ্ছে…</div>
+      <div id="post-feed" class="feed" aria-live="polite"></div>
+      <div id="empty-state" class="empty-state" hidden><div class="empty-icon">✦</div><h3>এখনও কোনো পোস্ট নেই</h3><p>প্রথম পোস্টটি আপনিই করুন।</p></div>
+      <div class="feed-footer"><span>সর্বশেষ পোস্ট আগে দেখানো হয়</span><span id="post-total"></span></div>
+    </section>
+
+    <footer><div class="footer-brand">OpenBoard</div><p>একটি উন্মুক্ত কমিউনিটি বোর্ড। প্রকাশিত বিষয়বস্তু ব্যবহারকারীদের নিজস্ব।</p><p class="small">কোনো লগইন নেই • সবার জন্য দৃশ্যমান • সম্মানজনক থাকুন</p></footer>
+  </main>
+
+  <template id="post-template">
+    <article class="post-card">
+      <div class="post-top">
+        <div class="avatar"></div>
+        <div class="post-meta"><strong class="post-author"></strong><time class="post-time"></time></div>
+        <button class="report-button" type="button" title="এই পোস্ট রিপোর্ট করুন">⚑ রিপোর্ট</button>
+      </div>
+      <p class="post-body"></p>
+      <div class="post-bottom"><span class="post-id"></span><span class="post-badge">সর্বজনীন পোস্ট</span></div>
+    </article>
+  </template>
+</body>
+</html>
